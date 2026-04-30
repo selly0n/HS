@@ -96,6 +96,21 @@ button:hover {
   transition: transform 0.2s;
   cursor: zoom-in;
 }
+
+.record-container {
+  overflow: hidden;
+  max-width: 90vw;
+  max-height: 70vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#recordImg {
+  max-width: 100%;
+  max-height: 100%;
+  transform-origin: center center;
+}
 </style>
 </head>
 
@@ -153,8 +168,11 @@ button:hover {
 <!-- 생활기록부 -->
 <div id="record" class="screen">
   <h2>생활기록부</h2>
-  <img id="recordImg" src="" width="400">
-  <br>
+
+  <div class="record-container">
+    <img id="recordImg" src="">
+  </div>
+
   <button onclick="goStudent()">뒤로가기</button>
 </div>
 
