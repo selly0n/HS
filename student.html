@@ -103,8 +103,8 @@ button:hover {
 }
 
 #recordImg {
-  max-width: 100%;
-  max-height: 100%;
+  max-width: none;
+  max-height: none;
   transition: transform 0.2s;
   cursor: grab;
 
@@ -218,7 +218,7 @@ document.addEventListener("DOMContentLoaded", function() {
     if (e.deltaY < 0) scale += 0.1;
     else scale -= 0.1;
 
-    if (scale < 1) scale = 1;
+   if (scale < 0.3) scale = 0.3;
     if (scale > 3) scale = 3;
 
     updateTransform();
