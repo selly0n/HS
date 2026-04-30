@@ -192,27 +192,67 @@ function goMain() {
   changeScreen('main');
 }
 
-function showRecord(img) {
-  document.getElementById('recordImg').src = img;
-  changeScreen('record');
-}
+document.addEventListener("DOMContentLoaded", function() {
 
-let scale = 1;
+  let scale = 1;
+  let isDragging = false;
+  let startX, startY;
+  let translateX = 0;
+  let translateY = 0;
 
-document.getElementById('recordImg').addEventListener('wheel', function(e) {
-  e.preventDefault();
+  const img = document.getElementById('recordImg');
 
-  if (e.deltaY < 0) {
-    scale += 0.1; // 확대
-  } else {
-    scale -= 0.1; // 축소
-  }
+  window.showRecord = function(imgSrc) {
+    scale = 1;
+    translateX = 0;
+    translateY = 0;
 
-  // 최소/최대 제한
-  if (scale < 0.5) scale = 0.5;
-  if (scale > 3) scale = 3;
+    img.style.transform = 'scale(1) translate(0, 0)';
+    img.src = imgSrc;
 
-  this.style.transform = `scale(${scale})`;
+    changeScreen('record');
+  };
+
+  // 확대/축소
+  img.addEventListener('wheel', function(e) {
+    e.preventDefault();
+
+    if (e.deltaY < 0) {
+      scale += 0.1;
+    } else {
+      scale -= 0.1;
+    }
+
+    if (scale < 0.5) scale = 0.5;
+    if (scale > 3) scale = 3;
+
+    img.style.transform = `scale(${scale}) translate(${translateX}px, ${translateY}px)`;
+  });
+
+  // 드래그 시작
+  img.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    startX = e.clientX - translateX;
+    startY = e.clientY - translateY;
+    img.style.cursor = 'grabbing';
+  });
+
+  // 드래그 이동
+  document.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+
+    translateX = e.clientX - startX;
+    translateY = e.clientY - startY;
+
+    img.style.transform = `scale(${scale}) translate(${translateX}px, ${translateY}px)`;
+  });
+
+  // 드래그 종료
+  document.addEventListener('mouseup', () => {
+    isDragging = false;
+    img.style.cursor = 'zoom-in';
+  });
+
 });
 </script>
 
