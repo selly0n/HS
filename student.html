@@ -108,6 +108,11 @@ button:hover {
   transition: transform 0.2s;
   cursor: grab;
 
+  #recordImg {
+  opacity: 0;
+  transition: transform 0.2s, opacity 0.2s;
+}
+
   /* 🔥 핵심 (드래그 버그 해결) */
   user-select: none;
   -webkit-user-drag: none;
@@ -201,6 +206,16 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   window.showRecord = function(imgSrc) {
+
+  // 🔥 먼저 숨김
+  img.style.visibility = 'hidden';
+
+  // 🔥 완전 초기화 (중요)
+  scale = 1;
+  translateX = 0;
+  translateY = 0;
+  img.style.transform = 'translate(0,0) scale(1)';
+
   img.src = imgSrc;
 
   img.onload = function() {
@@ -212,16 +227,18 @@ document.addEventListener("DOMContentLoaded", function() {
     const imgWidth = img.naturalWidth;
     const imgHeight = img.naturalHeight;
 
-    // 🔥 화면에 맞게 자동 비율 계산
     const scaleX = containerWidth / imgWidth;
     const scaleY = containerHeight / imgHeight;
 
-    scale = Math.min(scaleX, scaleY); // 더 작은 값으로 맞춤
+    scale = Math.min(scaleX, scaleY);
 
     translateX = 0;
     translateY = 0;
 
     updateTransform();
+
+    // 🔥 계산 끝나고 다시 보여주기
+    img.style.visibility = 'visible';
   };
 
   changeScreen('record');
@@ -268,6 +285,8 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 
 });
+
+img.style.opacity = 1;
 </script>
 
 </body>
