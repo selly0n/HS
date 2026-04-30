@@ -2,142 +2,71 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>학교 시스템</title>
+<title>행성고등학교</title>
 
 <style>
 body {
-  font-family: sans-serif;
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #0f172a; /* 딥 네이비 */
+  font-family: 'Arial', sans-serif;
+  color: white;
+}
+
+/* 중앙 컨테이너 */
+.container {
   text-align: center;
-  background: #f0f0f0;
 }
 
-.hidden { display: none; }
+/* 제목 */
+.title {
+  font-size: 48px;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
 
+/* 부제목 */
+.subtitle {
+  font-size: 16px;
+  color: #94a3b8;
+  margin-top: 10px;
+  letter-spacing: 4px;
+}
+
+/* 버튼 */
 button {
-  padding: 15px 20px;
-  margin: 10px;
-  border: none;
-  background: black;
+  margin-top: 40px;
+  padding: 15px 40px;
+  font-size: 16px;
+  border: 1px solid white;
+  background: transparent;
   color: white;
-  border-radius: 10px;
+  border-radius: 999px;
   cursor: pointer;
+  transition: 0.3s;
 }
 
-/* 학생 리스트 */
-.student-list img {
-  width: 120px;
-  margin: 10px;
-  cursor: pointer;
-  border-radius: 10px;
-}
-
-/* 시설 지도 */
-.map {
-  position: relative;
-  display: inline-block;
-}
-
-.map img {
-  width: 400px;
-}
-
-.point {
-  position: absolute;
-  background: red;
-  color: white;
-  padding: 5px;
-  border-radius: 5px;
-  cursor: pointer;
+/* 버튼 호버 */
+button:hover {
+  background: white;
+  color: black;
 }
 </style>
 </head>
 
 <body>
 
-<!-- 메인 -->
-<div id="main">
-  <h1>학교 시스템</h1>
-  <button onclick="show('student')">생활기록부 열람</button>
-  <button onclick="show('facility')">학교 시설소개</button>
+<div class="container">
+  <div class="title">행성고등학교</div>
+  <div class="subtitle">PLANET HIGH SCHOOL</div>
+
+  <button onclick="location.href='student.html'">
+    생활기록부 열람
+  </button>
 </div>
-
-<!-- 학생 -->
-<div id="student" class="hidden">
-  <h2>학생 목록</h2>
-
-  <div class="student-list">
-    <img src="학생1.png" onclick="showRecord('record1.png')">
-    <img src="학생2.png" onclick="showRecord('record2.png')">
-    <img src="학생3.png" onclick="showRecord('record3.png')">
-  </div>
-
-  <br>
-  <button onclick="back()">뒤로가기</button>
-</div>
-
-<!-- 생기부 이미지 -->
-<div id="record" class="hidden">
-  <h2>생활기록부</h2>
-  <img id="recordImg" src="" width="400">
-  <br>
-  <button onclick="backToStudent()">뒤로가기</button>
-</div>
-
-<!-- 시설 -->
-<div id="facility" class="hidden">
-  <h2>학교 구조도</h2>
-
-  <div class="map">
-    <img src="map.png">
-
-    <div class="point" style="top:50px; left:100px;"
-         onclick="showFacility('library.png','도서관입니다')">도서관</div>
-
-    <div class="point" style="top:150px; left:200px;"
-         onclick="showFacility('gym.png','체육관입니다')">체육관</div>
-  </div>
-
-  <br>
-  <button onclick="back()">뒤로가기</button>
-</div>
-
-<!-- 시설 상세 -->
-<div id="facilityDetail" class="hidden">
-  <h2 id="facilityText"></h2>
-  <img id="facilityImg" src="" width="400">
-  <br>
-  <button onclick="backToFacility()">뒤로가기</button>
-</div>
-
-<script>
-function show(id) {
-  document.querySelectorAll('div').forEach(d => d.classList.add('hidden'));
-  document.getElementById(id).classList.remove('hidden');
-}
-
-function back() {
-  show('main');
-}
-
-function showRecord(img) {
-  show('record');
-  document.getElementById('recordImg').src = img;
-}
-
-function backToStudent() {
-  show('student');
-}
-
-function showFacility(img, text) {
-  show('facilityDetail');
-  document.getElementById('facilityImg').src = img;
-  document.getElementById('facilityText').innerText = text;
-}
-
-function backToFacility() {
-  show('facility');
-}
-</script>
 
 </body>
 </html>
