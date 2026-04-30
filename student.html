@@ -16,17 +16,19 @@ body {
 /* 화면 공통 */
 .screen {
   display: none;
-  height: 100vh;
+  min-height: 100vh;
+  padding: 40px 20px;
+  box-sizing: border-box;
 }
-
+  
 /* 보이는 화면 */
 .active {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start; /* 중앙 → 위쪽 시작 */
   align-items: center;
   flex-direction: column;
 }
-
+  
 /* 메인 */
 .title {
   font-size: 48px;
@@ -162,6 +164,29 @@ function goMain() {
 function showRecord(img) {
   document.getElementById('recordImg').src = img;
   changeScreen('record');
+}
+
+let scale = 1;
+
+document.getElementById('recordImg').addEventListener('wheel', function(e) {
+  e.preventDefault();
+
+  if (e.deltaY < 0) {
+    scale += 0.1; // 확대
+  } else {
+    scale -= 0.1; // 축소
+  }
+
+  // 최소/최대 제한
+  if (scale < 0.5) scale = 0.5;
+  if (scale > 3) scale = 3;
+
+  this.style.transform = `scale(${scale})`;
+});
+
+#recordImg {
+  transition: transform 0.2s;
+  cursor: zoom-in;
 }
 </script>
 
