@@ -10,19 +10,20 @@ body {
   font-family: sans-serif;
   background: #0f172a;
   color: white;
-  text-align: center;
 }
 
-/* 공통 */
-.hidden { display: none; }
-
-/* 중앙 정렬 */
-.center {
+/* 화면 공통 */
+.screen {
+  display: none;
   height: 100vh;
+}
+
+/* 보이는 화면 */
+.active {
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 }
 
 /* 메인 */
@@ -38,71 +39,128 @@ body {
 }
 
 button {
-  margin-top: 30px;
+  margin-top: 40px;
   padding: 15px 40px;
   border: 1px solid white;
   background: transparent;
   color: white;
   border-radius: 999px;
   cursor: pointer;
-}
-
-/* 학생 */
-.student-list img {
-  width: 120px;
-  margin: 10px;
-  border-radius: 10px;
-  cursor: pointer;
   transition: 0.3s;
 }
 
-.student-list img:hover {
+button:hover {
+  background: white;
+  color: black;
+}
+
+/* 학생 목록 */
+.student-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.card {
+  margin: 15px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.card img {
+  width: 120px;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+
+.card img:hover {
   transform: scale(1.1);
+}
+
+.name {
+  margin-top: 8px;
 }
 </style>
 </head>
 
 <body>
 
-<!-- 메인 -->
-<div id="main" class="center">
+<!-- 메인 화면 -->
+<div id="main" class="screen active">
   <div class="title">행성고등학교</div>
   <div class="subtitle">PLANET HIGH SCHOOL</div>
-  <button onclick="show('student')">생활기록부 열람</button>
+
+  <button onclick="goStudent()">생활기록부 열람</button>
 </div>
 
 <!-- 학생 목록 -->
-<div id="student" class="hidden">
+<div id="student" class="screen">
   <h2>학생 목록</h2>
 
   <div class="student-list">
-    <img src="학생1.png" onclick="showRecord('record1.png')">
-    <img src="학생2.png" onclick="showRecord('record2.png')">
-    <img src="학생3.png" onclick="showRecord('record3.png')">
+
+    <div class="card" onclick="showRecord('record1.png')">
+      <img src="학생1.png">
+      <div class="name">공지유</div>
+    </div>
+
+    <div class="card" onclick="showRecord('record2.png')">
+      <img src="학생2.png">
+      <div class="name">모다빈</div>
+    </div>
+
+    <div class="card" onclick="showRecord('record3.png')">
+      <img src="학생3.png">
+      <div class="name">반도윤</div>
+    </div>
+
+     <div class="card" onclick="showRecord('record4.png')">
+      <img src="학생4.png">
+      <div class="name">백우찬</div>
+    </div>
+
+     <div class="card" onclick="showRecord('record5.png')">
+      <img src="학생5.png">
+      <div class="name">서유담</div>
+    </div>
+
+     <div class="card" onclick="showRecord('record6.png')">
+      <img src="학생6.png">
+      <div class="name">연제우</div>
+    </div>
+
   </div>
 
-  <button onclick="show('main')">뒤로가기</button>
+  <button onclick="goMain()">뒤로가기</button>
 </div>
 
-<!-- 생기부 -->
-<div id="record" class="hidden">
+<!-- 생활기록부 -->
+<div id="record" class="screen">
   <h2>생활기록부</h2>
   <img id="recordImg" src="" width="400">
   <br>
-  <button onclick="show('student')">뒤로가기</button>
+  <button onclick="goStudent()">뒤로가기</button>
 </div>
 
 <script>
-function show(id) {
-  document.querySelectorAll('body > div').forEach(div => {
-    div.classList.add('hidden');
+function changeScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => {
+    s.classList.remove('active');
   });
-  document.getElementById(id).classList.remove('hidden');
+  document.getElementById(id).classList.add('active');
+}
+
+function goStudent() {
+  changeScreen('student');
+}
+
+function goMain() {
+  changeScreen('main');
 }
 
 function showRecord(img) {
-  show('record');
   document.getElementById('recordImg').src = img;
+  changeScreen('record');
 }
 </script>
 
