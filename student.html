@@ -22,13 +22,19 @@ body {
 }
   
 /* 보이는 화면 */
+  .active {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
 #main.active {
-  justify-content: center; /* 메인은 완전 중앙 */
+  justify-content: center;
 }
 
 #student.active,
 #record.active {
-  justify-content: flex-start; /* 나머지는 위쪽 */
+  justify-content: flex-start;
 }
   
 /* 메인 */
