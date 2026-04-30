@@ -201,16 +201,32 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   window.showRecord = function(imgSrc) {
-    scale = 1;
+  img.src = imgSrc;
+
+  img.onload = function() {
+    const container = document.querySelector('.record-container');
+
+    const containerWidth = container.clientWidth;
+    const containerHeight = container.clientHeight;
+
+    const imgWidth = img.naturalWidth;
+    const imgHeight = img.naturalHeight;
+
+    // 🔥 화면에 맞게 자동 비율 계산
+    const scaleX = containerWidth / imgWidth;
+    const scaleY = containerHeight / imgHeight;
+
+    scale = Math.min(scaleX, scaleY); // 더 작은 값으로 맞춤
+
     translateX = 0;
     translateY = 0;
 
-    img.style.transform = 'translate(0,0) scale(1)';
-    img.src = imgSrc;
-
-    changeScreen('record');
+    updateTransform();
   };
 
+  changeScreen('record');
+};
+  
   // 확대/축소
   img.addEventListener('wheel', function(e) {
     e.preventDefault();
@@ -218,7 +234,7 @@ document.addEventListener("DOMContentLoaded", function() {
     if (e.deltaY < 0) scale += 0.1;
     else scale -= 0.1;
 
-   if (scale < 0.3) scale = 0.3;
+   if (scale < 0.2) scale = 0.2;
     if (scale > 3) scale = 3;
 
     updateTransform();
