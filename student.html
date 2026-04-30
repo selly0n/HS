@@ -22,11 +22,13 @@ body {
 }
   
 /* 보이는 화면 */
-.active {
-  display: flex;
-  justify-content: flex-start; /* 중앙 → 위쪽 시작 */
-  align-items: center;
-  flex-direction: column;
+#main.active {
+  justify-content: center; /* 메인은 완전 중앙 */
+}
+
+#student.active,
+#record.active {
+  justify-content: flex-start; /* 나머지는 위쪽 */
 }
   
 /* 메인 */
@@ -82,6 +84,11 @@ button:hover {
 
 .name {
   margin-top: 8px;
+}
+
+#recordImg {
+  transition: transform 0.2s;
+  cursor: zoom-in;
 }
 </style>
 </head>
@@ -183,11 +190,6 @@ document.getElementById('recordImg').addEventListener('wheel', function(e) {
 
   this.style.transform = `scale(${scale})`;
 });
-
-#recordImg {
-  transition: transform 0.2s;
-  cursor: zoom-in;
-}
 </script>
 
 </body>
