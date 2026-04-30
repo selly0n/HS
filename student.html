@@ -105,7 +105,7 @@ button:hover {
 #recordImg {
   max-width: none;
   max-height: none;
-  transition: transform 0.2s;
+  transition: none;
   cursor: grab;
 
   #recordImg {
@@ -239,24 +239,27 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // 🔥 계산 끝나고 다시 보여주기
     img.style.visibility = 'visible';
+    img.style.transition = 'none';
   };
 
   changeScreen('record');
 };
   
   // 확대/축소
-  img.addEventListener('wheel', function(e) {
-    e.preventDefault();
+ img.addEventListener('wheel', function(e) {
+  e.preventDefault();
 
-    if (e.deltaY < 0) scale += 0.1;
-    else scale -= 0.1;
+  img.style.transition = 'transform 0.15s'; // 여기서만 부드럽게
 
-   if (scale < 0.2) scale = 0.2;
-    if (scale > 3) scale = 3;
+  if (e.deltaY < 0) scale += 0.1;
+  else scale -= 0.1;
 
-    updateTransform();
-  });
+  if (scale < 0.2) scale = 0.2;
+  if (scale > 3) scale = 3;
 
+  updateTransform();
+});
+  
   // 드래그 시작
   img.addEventListener('mousedown', (e) => {
     e.preventDefault();
